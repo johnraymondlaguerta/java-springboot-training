@@ -43,25 +43,17 @@ NOTE: You can also fork the project from Github and open it in your IDE or other
 
 For this guide to work, you must stand up a local MongoDB server.
 
-On a Mac OS X machine with Homebrew installed, run the following commands:
-
-====
-[src,bash]
-----
-brew tap mongodb/brew
-brew install mongodb-community
-----
-====
+On Windows machine, run the following commands:
 
 You can find more installation options at https://docs.mongodb.org/manual/installation/.
 
-After installing MongoDB, you need to launch the service. On a Mac, you can use
+After installing MongoDB, you need to launch the service. On a Windows you can use
 the following command:
 
 ====
 [src,bash]
 ----
-$ brew services start mongodb-community
+$ net start mongodb
 ----
 ====
 
@@ -222,6 +214,16 @@ Customer[id=51df1b0a3004cb49c50210f8, firstName='Alice', lastName='Smith']
 Customer[id=51df1b0a3004cb49c50210f9, firstName='Bob', lastName='Smith']
 ----
 ====
+
+==== How to Check it on MongoDB Compass
+
+1. Open the MongoDB Compass on your windows laptop.
+2. Put the URI : mongodb://localhost:27017
+3. Click Connect.
+4. On the left side bar, look for your database name.
+5. Click on the database name to expand it.
+6. Click on the customer collection.
+
 
 == Summary
 
