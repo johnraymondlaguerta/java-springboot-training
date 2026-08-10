@@ -21,6 +21,10 @@ public class AccessingDataMongodbApplication {
 			// save a couple of customers
 			repository.save(new Customer("Alice", "Smith"));
 			repository.save(new Customer("Bob", "Smith"));
+			repository.save(new Customer("John Raymond", "Laguerta"));
+			repository.save(new Customer("Rubymae Rose", "Laguerta"));
+			repository.save(new Customer("Akiro James", "Laguerta"));
+			repository.save(new Customer("Alaia Johanna", "Laguerta"));
 
 			// fetch all customers
 			System.out.println("Customers found with findAll():");
