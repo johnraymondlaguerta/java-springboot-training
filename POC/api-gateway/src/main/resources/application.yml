@@ -1,0 +1,53 @@
+server:
+  port: 8080            # the ONLY public port of the whole system
+
+spring:
+  application:
+    name: api-gateway
+  jackson:
+    serialization:
+      indent-output: true
+  cloud:
+    gateway:
+      routes:
+        # "lb://<service-name>" = look the service up in Eureka (no host/port anywhere)
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/product/**,/api/products
+
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**,/api/orders,/api/customer/**,/api/customers
+
+        # Actuator health of each service, reachable through the gateway
+        - id: product-health
+          uri: lb://product-service
+          predicates:
+            - Path=/health/product
+          filters:
+            - RewritePath=/health/product, /actuator/health
+
+        - id: order-health
+          uri: lb://order-service
+          predicates:
+            - Path=/health/order
+          filters:
+            - RewritePath=/health/order, /actuator/health
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
