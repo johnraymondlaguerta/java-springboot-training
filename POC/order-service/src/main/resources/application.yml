@@ -1,0 +1,29 @@
+server:
+  port: 0                # random free port -> nothing hardcoded; found through Eureka
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: order-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orderdb      # <- order-service's OWN database
+      auto-index-creation: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.uuid}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
