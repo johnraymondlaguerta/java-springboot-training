@@ -1,0 +1,29 @@
+server:
+  port: 0                # random free port -> nothing hardcoded; found through Eureka
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: product-service   # this name is what other services / the gateway use
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/productdb    # <- product-service's OWN database
+      auto-index-creation: true                   # required so @Indexed creates the indexes
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.uuid}   # lets you run several copies
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
